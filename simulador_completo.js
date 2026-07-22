@@ -29,6 +29,28 @@ function mostrarSeccion(idSeccion) {
 
 }
 
+function guardarTasa() {
 
-// Para recuperar o mostrar información usar los métodos
-// de la clase utilitarios.
+    let nuevaTasa;
+
+    nuevaTasa = recuperarFloat("tasaInteres");
+
+    if (nuevaTasa >= 10 && nuevaTasa <= 20) {
+
+        tasaInteres = nuevaTasa;
+
+        mostrarTexto(
+            "mensajeTasa",
+            "Tasa configurada correctamente: " + tasaInteres + "%"
+        );
+
+    } else {
+
+        mostrarTexto(
+            "mensajeTasa",
+            "La tasa debe estar entre 10% y 20%"
+        );
+
+    }
+
+}
