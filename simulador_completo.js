@@ -3,18 +3,28 @@ let creditos = [];
 
 let tasaInteres = 15;
 let clienteSeleccionado = null;
+let clienteCreditoSeleccionado = null;
+
 let cuotaCalculada = 0;
 let montoCalculado = 0;
 let plazoCalculado = 0;
 let creditoAprobado = false;
 
-
 // OCULTAR TODAS LAS SECCIONES
 
 function ocultarSecciones() {
 
-    document.getElementById("parametros").classList.remove("activa");
-    document.getElementById("clientes").classList.remove("activa");
+    document
+        .getElementById("parametros")
+        .classList.remove("activa");
+
+    document
+        .getElementById("clientes")
+        .classList.remove("activa");
+
+    document
+        .getElementById("credito")
+        .classList.remove("activa");
 
 }
 
@@ -250,5 +260,56 @@ function limpiarFormularioCliente() {
     document.getElementById("cedulaCliente").disabled = false;
 
     clienteSeleccionado = null;
+
+}
+
+function buscarClienteCredito() {
+
+    let cedula;
+
+    cedula = recuperaraTexto("buscarCedulaCredito");
+
+    clienteCreditoSeleccionado = buscarCliente(cedula);
+
+    if (clienteCreditoSeleccionado !== null) {
+
+        mostrarDatosClienteCredito();
+
+    } else {
+
+        document.getElementById("datosClienteCredito").innerHTML =
+            "<h3>Cliente no encontrado</h3>" +
+            "<p>No existe un cliente registrado con esa cédula.</p>";
+
+        document.getElementById("resultadoCredito").innerHTML = "";
+
+    }
+
+}
+
+function mostrarDatosClienteCredito() {
+
+    let datosClienteCredito;
+
+    datosClienteCredito =
+        document.getElementById("datosClienteCredito");
+
+    datosClienteCredito.innerHTML =
+        "<h3>Datos del Cliente</h3>" +
+        "<p><strong>Cédula:</strong> " +
+        clienteCreditoSeleccionado.cedula +
+        "</p>" +
+        "<p><strong>Nombre:</strong> " +
+        clienteCreditoSeleccionado.nombre +
+        "</p>" +
+        "<p><strong>Apellido:</strong> " +
+        clienteCreditoSeleccionado.apellido +
+        "</p>" +
+        "<p><strong>Ingresos:</strong> $" +
+        clienteCreditoSeleccionado.ingresos +
+        "</p>" +
+        "<p><strong>Egresos:</strong> $" +
+        clienteCreditoSeleccionado.egresos +
+        "</p>";
 
 }
