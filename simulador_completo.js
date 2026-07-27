@@ -313,3 +313,94 @@ function mostrarDatosClienteCredito() {
         "</p>";
 
 }
+
+function calcularCredito() {
+
+    let monto;
+    let plazo;
+    let capacidadPago;
+    let interes;
+    let totalPagar;
+    let cuotaMensual;
+    let resultadoCredito;
+
+    resultadoCredito = document.getElementById("resultadoCredito");
+
+    if (clienteCreditoSeleccionado === null) {
+
+        resultadoCredito.innerHTML =
+            "Primero debe buscar un cliente.";
+
+        resultadoCredito.className = "rechazado";
+
+        return;
+
+    }
+
+    monto = recuperarFloat("montoCredito");
+    plazo = recuperarInt("plazoCredito");
+
+    if (
+        isNaN(monto) ||
+        isNaN(plazo) ||
+        monto <= 0 ||
+        plazo <= 0
+    ) {
+
+        resultadoCredito.innerHTML =
+            "Ingrese correctamente el monto y el plazo.";
+
+        resultadoCredito.className = "rechazado";
+
+        return;
+
+    }
+
+    capacidadPago =
+        clienteCreditoSeleccionado.ingresos -
+        clienteCreditoSeleccionado.egresos;
+
+    interes =
+        monto *
+        (tasaInteres / 100) *
+        (plazo / 12);
+
+    totalPagar = monto + interes;
+
+    cuotaMensual = totalPagar / plazo;
+
+    if (cuotaMensual <= capacidadPago) {
+
+        resultadoCredito.innerHTML =
+            "Capacidad de pago: $" +
+            capacidadPago.toFixed(2) +
+            "<br>" +
+            "Total a pagar: $" +
+            totalPagar.toFixed(2) +
+            "<br>" +
+            "Cuota mensual: $" +
+            cuotaMensual.toFixed(2) +
+            "<br>" +
+            "RESULTADO: APROBADO";
+
+        resultadoCredito.className = "aprobado";
+
+    } else {
+
+        resultadoCredito.innerHTML =
+            "Capacidad de pago: $" +
+            capacidadPago.toFixed(2) +
+            "<br>" +
+            "Total a pagar: $" +
+            totalPagar.toFixed(2) +
+            "<br>" +
+            "Cuota mensual: $" +
+            cuotaMensual.toFixed(2) +
+            "<br>" +
+            "RESULTADO: RECHAZADO";
+
+        resultadoCredito.className = "rechazado";
+
+    }
+
+}
